@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>라임 마스터</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="app" id="app">
+      <section class="screen start-screen" id="startScreen">
+        <h1 class="game-title">🎤 라임 마스터</h1>
+        <p class="subtitle">당신의 래퍼 닉네임을 입력하세요</p>
+        <input
+          id="nicknameInput"
+          class="nickname-input"
+          type="text"
+          maxlength="12"
+          placeholder="예: MC Rhythm"
+        />
+        <button id="startBtn" class="arcade-btn" disabled>START</button>
+      </section>
+
+      <section class="screen game-screen hidden" id="gameScreen">
+        <header class="hud">
+          <div class="top-line">
+            <div class="player" id="playerName">Player</div>
+            <div class="score" id="score">0점</div>
+          </div>
+          <div class="time-wrap">
+            <div class="time-label">TIME</div>
+            <div class="time-bar-bg">
+              <div class="time-bar" id="timeBar"></div>
+            </div>
+            <div class="time-value" id="timeValue">60.0s</div>
+          </div>
+        </header>
+
+        <div class="feedback-layer" id="feedbackLayer">
+          <span class="plus-score" id="plusScore">+10</span>
+        </div>
+
+        <div class="quiz-card">
+          <p class="question-label">제시어</p>
+          <h2 id="promptWord" class="prompt-word">가방</h2>
+          <p class="question-guide">같은 모음 구조(라임)인 단어를 고르세요!</p>
+          <div class="options-grid" id="optionsGrid"></div>
+        </div>
+      </section>
+
+      <section class="result-overlay hidden" id="resultOverlay">
+        <div class="score-card">
+          <h2>GAME OVER</h2>
+          <p id="finalScoreText" class="final-score-text"></p>
+          <p id="finalTitleText" class="final-title-text"></p>
+          <p class="capture-guide">📸 이 화면을 캡처해서 패들렛에 올려주세요!</p>
+        </div>
+        <button id="retryBtn" class="arcade-btn retry-btn">🔄 다시 도전하기</button>
+      </section>
+    </main>
+
+    <footer class="footer">인동고 음악 수업 | 랩 창작 | 하은t</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
