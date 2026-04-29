@@ -48,11 +48,14 @@ const app = document.getElementById("app");
 const plusScore = document.getElementById("plusScore");
 const finalScoreText = document.getElementById("finalScoreText");
 const finalTitleText = document.getElementById("finalTitleText");
+const GAME_DURATION = 40;
+const COMBO_BONUS_INTERVAL = 5;
+const COMBO_BONUS_SECONDS = 0.5;
 
 let state = {
   nickname: "",
   score: 0,
-  timeLeft: 60,
+  timeLeft: GAME_DURATION,
   combo: 0,
   timerId: null,
   activeQuestion: null,
@@ -87,7 +90,7 @@ function pickQuestion() {
 function renderHud() {
   scoreEl.textContent = `${state.score}점`;
   timeValue.textContent = `${Math.max(0, state.timeLeft).toFixed(1)}s`;
-  const ratio = Math.max(0, Math.min(1, state.timeLeft / 60));
+  const ratio = Math.max(0, Math.min(1, state.timeLeft / GAME_DURATION));
   timeBar.style.width = `${ratio * 100}%`;
 }
 
@@ -114,8 +117,8 @@ function onAnswer(selectedWord) {
   if (selectedWord === state.activeQuestion.answer) {
     state.score += 10;
     state.combo += 1;
-    if (state.combo > 0 && state.combo % 5 === 0) {
-      state.timeLeft += 1;
+    if (state.combo > 0 && state.combo % COMBO_BONUS_INTERVAL === 0) {
+      state.timeLeft += COMBO_BONUS_SECONDS;
     }
     showCorrectFeedback();
   } else {
@@ -124,7 +127,7 @@ function onAnswer(selectedWord) {
     showWrongFeedback();
   }
 
-  state.timeLeft = Math.min(60, state.timeLeft);
+  state.timeLeft = Math.min(GAME_DURATION, state.timeLeft);
   renderHud();
   if (state.timeLeft <= 0) {
     endGame();
@@ -134,8 +137,10 @@ function onAnswer(selectedWord) {
 }
 
 function titleByScore(score) {
-  if (score >= 200) return "랩의 아버지";
-  if (score >= 100) return "수퍼 루키";
+  if (score >= 200) return "랩의 신";
+  if (score >= 160) return "플로우 마스터";
+  if (score >= 120) return "비트 지배자";
+  if (score >= 80) return "수퍼 루키";
   return "연습생";
 }
 
@@ -152,7 +157,7 @@ function startGame() {
   state = {
     nickname: nicknameInput.value.trim(),
     score: 0,
-    timeLeft: 60,
+    timeLeft: GAME_DURATION,
     combo: 0,
     timerId: null,
     activeQuestion: null,
